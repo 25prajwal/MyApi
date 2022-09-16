@@ -1,2 +1,0 @@
-Flask==2.2.2
-websearch-python==1.2.1
