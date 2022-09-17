@@ -23,6 +23,10 @@ def web_(name,ext):
     web = WebSearch(f"{name} filetype:{ext}")
     return web.pages
 
+@app.route('/wiki/<string:q>')
+def wiki(q):
+    import wikipedia as wiki
+    return wiki.summary(q, sentences =10 )
 
 if __name__ == "__main__" :
     app.run(debug=True)
