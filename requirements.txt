@@ -5,3 +5,4 @@ requests==2.25.1
 requests-file==1.5.1
 Scrapy==2.6.2
 websearch-python==1.2.1
+wikipedia==1.4.0
