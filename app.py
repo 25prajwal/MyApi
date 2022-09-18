@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World!'
+    return 'Hello, World! v1'
 
 @app.route('/math/<string:method>/<string:m>/<string:n')
 def math(method,m,n):
@@ -46,29 +46,6 @@ def web_(name,ext):
 def wiki(q):
     import wikipedia as wiki
     return wiki.summary(q, sentences =10 )
-
-# @app.route('/crawl/<path:crawl>', methods = [ 'GET'])
-# def crawl(crawl):
-# 	r = requests.get(request.full_path.replace("/path/",""))
-# 	linkl=[]
-# 	soup = BeautifulSoup(r.text, 'html.parser')
-# 	images = soup.findAll('img')
-# 	if len(images) != 0:
-# 		for i, image in enumerate(images):
-# 			try:
-# 				linkl.append(image["data-srcset"])
-# 			except:
-# 				try:
-# 					linkl.append(image["data-src"])
-# 				except:
-# 					try:
-# 						linkl.append(image["data-fallback-src"])
-# 					except:
-# 						try:
-# 							linkl.append(image["src"])
-# 						except:
-# 							pass
-# 	return linkl
 
 
 if __name__ == "__main__" :
