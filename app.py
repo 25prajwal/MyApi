@@ -1,9 +1,28 @@
 from flask import Flask
+from bs4 import *
+import requests					
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
     return 'Hello, World!'
+
+@app.route('/math/<string:method>/<string:m>/<string:n')
+def math(method,m,n):
+    m,n=int(m),int(n)
+    if(method == "sum" or method =="add"):
+        result = m+n
+    elif(method == "mul"):
+        result = m*n
+    elif(method == "sub"):
+        result = m-n
+    elif(method=="div"):
+        result = m/n
+    elif method=="pow":
+        result = m**n
+    else:
+        result = "invaild"
+    return str(result)
 
 
 @app.route('/sum/<string:n>/<string:m>')
@@ -30,8 +49,6 @@ def wiki(q):
 
 @app.route('/crawl/<path:crawl>', methods = [ 'GET'])
 def crawl(crawl):
-    from bs4 import *
-    import requests
 	r = requests.get(request.full_path.replace("/path/",""))
 	linkl=[]
 	soup = BeautifulSoup(r.text, 'html.parser')
