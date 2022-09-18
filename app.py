@@ -7,7 +7,7 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello, World! v1'
 
-@app.route('/math/<string:method>/<string:m>/<string:n')
+@app.route('/math/<string:method>/<string:m>/<string:n>')
 def math(method,m,n):
     m,n=int(m),int(n)
     if(method == "sum" or method =="add"):
