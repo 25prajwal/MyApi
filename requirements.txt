@@ -1,8 +1,4 @@
-flash==1.0.3
-Flask==2.2.2
+beautifulsoup4==4.11.1
+flake8==4.0.1
+Flask==2.2.3
 gunicorn==20.1.0
-requests==2.25.1
-requests-file==1.5.1
-Scrapy==2.6.2
-websearch-python==1.2.1
-wikipedia==1.4.0

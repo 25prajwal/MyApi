@@ -1,52 +1,34 @@
 from flask import Flask
-from bs4 import *
-import requests					
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World! v1'
+@app.route("/")
+def home():
+    return ("Hello World v1")
 
-@app.route('/math/<string:method>/<string:m>/<string:n>')
-def math(method,m,n):
-    m,n=int(m),int(n)
-    if(method == "sum" or method =="add"):
-        result = m+n
-    elif(method == "mul"):
-        result = m*n
-    elif(method == "sub"):
-        result = m-n
-    elif(method=="div"):
-        result = m/n
-    elif method=="pow":
-        result = m**n
-    else:
-        result = "invaild"
-    return str(result)
-
-
-@app.route('/sum/<string:n>/<string:m>')
-def sum(n,m):
-    a = int(n)+int(m)
-    return str(a)
-
-@app.route('/web/<string:name>')
-def web(name):
-    from websearch import WebSearch
-    web = WebSearch(name)
-    return web.pages
-
-@app.route('/web/<string:name>/<string:ext>')
-def web_(name,ext):
-    from websearch import WebSearch
-    web = WebSearch(f"{name} filetype:{ext}")
-    return web.pages
-
-@app.route('/wiki/<string:q>')
-def wiki(q):
-    import wikipedia as wiki
-    return wiki.summary(q, sentences =10 )
-
-
-if __name__ == "__main__" :
-    app.run(debug=True)
+@app.route("/xpshort/<path:url>")
+def xpshort(url):
+    import time
+    import requests
+    from bs4 import BeautifulSoup 
+    client = requests.session()
+    DOMAIN = "https://xpshort.com/"
+    url = url[:-1] if url[-1] == '/' else url
+    code = url.split("/")[-1]
+    final_url = f"{DOMAIN}/{code}"
+    ref = "https://www.jankarihoga.com/"
+    h = {"referer": ref}
+    resp = client.get(final_url,headers=h)
+    soup = BeautifulSoup(resp.content, "html.parser")
+    inputs = soup.find_all("input")
+    data = { input.get('name'): input.get('value') for input in inputs }
+    h = { "x-requested-with": "XMLHttpRequest" }  
+    time.sleep(8)
+    r = client.post(f"{DOMAIN}/links/go", data=data, headers=h)
+    try:
+        return r.json()['url']
+    except: 
+        return "Something went wrong :("
+    
+    
+if __name__ == "__main__":
+    app.run()
